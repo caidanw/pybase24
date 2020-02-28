@@ -1,3 +1,5 @@
+from typing import Union
+
 ALPHABET = 'ZAC2B3EF4GH5TK67P8RS9WXY'
 ALPHABET_LENGTH = 24
 
@@ -8,7 +10,7 @@ decode_map = {
 }
 
 
-def encode24(data: bytearray) -> str:
+def encode24(data: Union[bytes, bytearray]) -> str:
     """
     Encode bytes to a string using base24.
     :param data: A byte array, length must be a multiple of 4.
@@ -36,7 +38,7 @@ def encode24(data: bytearray) -> str:
         sub_result = list()
         for _ in range(7):
             idx = int(value % ALPHABET_LENGTH)
-            value = value / ALPHABET_LENGTH
+            value = value // ALPHABET_LENGTH
             sub_result.insert(0, encode_map.get(idx))
 
         sub_result = ''.join(sub_result)
